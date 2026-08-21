@@ -1,0 +1,7 @@
+import { Link, createFileRoute } from '@tanstack/react-router'
+import { Plus } from 'lucide-react'
+import { AppShell } from '../components/AppShell'
+import { getProjects } from '../features/projects/server-functions'
+
+export const Route = createFileRoute('/dashboard')({ loader: () => getProjects(), component: Dashboard })
+function Dashboard() { const projects = Route.useLoaderData(); return <AppShell><div className="page-head"><div><p className="eyebrow">Workspace</p><h1>Projects</h1><p>{projects.length} {projects.length === 1 ? 'project' : 'projects'} in this workspace</p></div><Link to="/projects/new" className="button primary"><Plus size={17} />Create project</Link></div>{projects.length === 0 ? <section className="empty"><h2>Start with a project architecture</h2><p>Select a stack, document your decisions, and give your coding agent a clear PROJECT.md.</p><Link to="/projects/new" className="button primary">Create your first project</Link></section> : <section className="project-list"><h2>All projects</h2><div className="cards">{projects.map((project) => <article className="project-card" key={project.id}><p className="eyebrow">Updated {new Date(project.updatedAt).toLocaleDateString()}</p><h3>{project.name}</h3><p>{project.description || 'No description provided.'}</p><div className="tags"><span>{project.frontend}</span><span>{project.backend}</span><span>{project.database}</span><span>{project.ui}</span></div><Link to="/projects/$projectId" params={{ projectId: project.id }}>Open project →</Link></article>)}</div></section>}</AppShell> }
