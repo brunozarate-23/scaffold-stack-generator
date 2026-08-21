@@ -12,6 +12,24 @@ dist-ssr
 __unconfig*
 todos.json
 
+# Local AI coding-agent configuration, plans, and session artifacts
+.pi/
+.ai/
+ai_plan/
+.claude/
+.codex/
+.cursor/
+.continue/
+.aider*
+.agent/
+.agents/
+.roo/
+.windsurf/
+.opencode/
+.factory/
+*.session
+*.transcript
+
 data/
 *.sqlite
 *.sqlite-shm
